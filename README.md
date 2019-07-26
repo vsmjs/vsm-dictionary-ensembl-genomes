@@ -99,9 +99,9 @@ the entries that we will map to VSM-entry properties. For a complete list of the
 available fields for the ensemblGenomes_gene domain, see: https://www.ebi.ac.uk/ebisearch/metadata.ebi?db=ensemblGenomes_gene
 - The last part defines the format of the returned data (JSON)
 
-Otherwise, we ask for all ids (no particular sorting offered) with this query:
+Otherwise, we ask for all ids (by default **id sorted**) with this query:
 ```
-https://www.ebi.ac.uk/ebisearch/ws/rest/ensemblGenomes_gene?query=domain_source:ensemblGenomes_gene&fields=id%2Cname%2Cdescription%2Cgene_synonyms%2Cspecies&size=50&start=0&format=json
+https://www.ebi.ac.uk/ebisearch/ws/rest/ensemblGenomes_gene?query=domain_source:ensemblGenomes_gene&fields=id%2Cname%2Cdescription%2Cgene_synonyms%2Cspecies&sort=id&size=50&start=0&format=json
 ```
 
 Note that depending on the `options.page` and `options.perPage` options 
