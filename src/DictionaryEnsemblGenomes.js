@@ -151,7 +151,8 @@ module.exports = class DictionaryEnsemblGenomes extends Dictionary {
       // all IDs
       url = url
         .replace('/entry/$ids', '?query=domain_source:' + this.ebiSearchDomain)
-        + '&fields=' + fixedEncodeURIComponent(this.ensemblGenomesFields);
+        + '&fields=' + fixedEncodeURIComponent(this.ensemblGenomesFields)
+        + '&sort=id';
 
       // add size and start URL parameters
       let pageSize = this.perPageDefault;
