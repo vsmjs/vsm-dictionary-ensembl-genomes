@@ -61,21 +61,29 @@ In the next sections we will explain the mapping between the data
 offered by EBI Search's API and the corresponding VSM objects. Find the 
 documentation for the API here: https://www.ebi.ac.uk/ebisearch/documentation.ebi
 
-### Map EnsemblGenomes to DictInfo VSM object
+### Map Ensembl Genomes to DictInfo VSM object
 
 This specification relates to the function:  
  `getDictInfos(options, cb)`
 
-Since `vsm-dictionary-ensembl-genomes` has only one sub-dictionary
-(it's a uni-dictionary!), `getDictInfos` returns a static object with properties:
+If the `options.filter.id` is not properly defined 
+or the `http://www.ensemblgenomes.org` dictID is included in the 
+list of ids used for filtering, `getDictInfos` returns a static object 
+with the following properties:
 - `id`: 'http://www.ensemblgenomes.org' (will be used as a `dictID`)
-- `abbrev`: 'EnsemblGenomes'
-- `name`: 'EnsemblGenomes'
+- `abbrev`: 'Ensembl Genomes'
+- `name`: 'Ensembl Genomes'
 
-### Map EnsemblGenomes to Entry VSM object
+Otherwise, an empty result is returned.
+
+### Map Ensembl Genomes to Entry VSM object
 
 This specification relates to the function:  
  `getEntries(options, cb)`
+
+Firstly, if the `options.filter.dictID` is properly defined and in the list of 
+dictIDs the `http://www.ensemblgenomes.org` dictID is not included, then 
+an **empty array** of entry objects is returned.
 
 If the `options.filter.id` is properly defined (with IDs like
 `https://www.ensemblgenomes.org/id/AT3G52430`) then we use a query like this:
@@ -133,13 +141,17 @@ EnsemblGenomes field | Type | Required | VSM entry/match object property | Notes
 `gene_synonyms` | Array | NO | `terms[i].str` | We map the whole array
 `species` | Array | NO | `z.species` | We use the first element only
 
-### Map EnsemblGenomes to Match VSM object
+### Map Ensembl Genomes to Match VSM object
 
 This specification relates to the function:  
  `getEntryMatchesForString(str, options, cb)`
 
-An example of a URL string that is being built and send to the EBI Search's REST 
-API when requesting for `tp53`, is:
+Firstly, if the `options.filter.dictID` is properly defined and in the list of 
+dictIDs the `http://www.ensemblgenomes.org` dictID is not included, then 
+an **empty array** of match objects is returned.
+
+Otherwise, an example of a URL string that is being built and send to the EBI 
+Search's REST API when requesting for `tp53`, is:
 ```
 https://www.ebi.ac.uk/ebisearch/ws/rest/ensemblGenomes_gene?query=tp53&fields=id%2Cname%2Cdescription%2Cgene_synonyms%2Cspecies&size=20&start=0&format=json
 ```
