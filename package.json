@@ -1,6 +1,6 @@
 {
   "name": "vsm-dictionary-ensembl-genomes",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Implementation of a VSM-dictionary that uses the EBI search RESTful Web Services to interact with the Ensembl Genomes database (non-vertebrate species)",
   "main": "src/DictionaryEnsemblGenomes.js",
   "scripts": {
