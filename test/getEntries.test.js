@@ -9,9 +9,9 @@ const dict = new DictionaryEnsemblGenomes({log: true});
 
 dict.getEntries({
   filter: { id: [
-    'https://www.ensemblgenomes.org/id/Z208_01625',
-    'https://www.ensemblgenomes.org/id/EMPG_14124',
-    'https://www.ensemblgenomes.org/id/AT3G52430'
+    'http://www.ensemblgenomes.org/id/Z208_01625',
+    'http://www.ensemblgenomes.org/id/EMPG_14124',
+    'http://www.ensemblgenomes.org/id/AT3G52430'
   ]},
   sort: 'id',
   page: 1,

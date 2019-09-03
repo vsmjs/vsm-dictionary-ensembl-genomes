@@ -86,7 +86,7 @@ dictIDs the `http://www.ensemblgenomes.org` dictID is not included, then
 an **empty array** of entry objects is returned.
 
 If the `options.filter.id` is properly defined (with IDs like
-`https://www.ensemblgenomes.org/id/AT3G52430`) then we use a query like this:
+`http://www.ensemblgenomes.org/id/AT3G52430`) then we use a query like this:
 
 ```
 https://www.ebi.ac.uk/ebisearch/ws/rest/ensemblGenomes_gene/entry/Z208_01625,EMPG_14124,AT3G52430?fields=id%2Cname%2Cdescription%2Cgene_synonyms%2Cspecies&format=json
@@ -99,7 +99,7 @@ From the above URL, we provide a brief description for each sub-part:
 for entry information associated with entry identifiers)
 - The fourth part is the *entry IDs*, comma separated (we extract the last part 
 of the EnsemblGenomes-specific URI for each ID). Note that for VSM the URI ID is 
-something like: `https://www.ensemblgenomes.org/id/Z208_01625`, 
+something like: `http://www.ensemblgenomes.org/id/Z208_01625`, 
 while the EnsemblGenomes entry IDs are created based on the IDs imported from 
 external sources (for more info see [here](http://ensemblgenomes.org/info/data/identifiers)).
 - The fifth part is the *fields* of interest - i.e. the information related to 
