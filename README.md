@@ -141,6 +141,18 @@ EnsemblGenomes field | Type | Required | VSM entry/match object property | Notes
 `gene_synonyms` | Array | NO | `terms[i].str` | We map the whole array
 `species` | Array | NO | `z.species` | We use the first element only
 
+Note that the above mapping describes what we as developers thought as the most
+reasonable. There is though a global option `optimap` that you can pass to the 
+`DictionaryEnsemblGenomes` object, which optimizes the above mapping for curator clarity
+and use. The **default value is true** and what changes in the mapping table
+above (which is the mapping for `optimap: false` actually) is that the VSM's `descr` 
+entry/match object property takes the combined value of the `species` (first two
+words), the gene identifier and synonyms (`id`, `gene_synonym`) and the 
+`description` (in that order). The reason behind this is that the `description` 
+is sometimes the same for different genes or even empty when `optimap: false` 
+and thus not distinguishable, so we had to provide a more clarified description 
+string for each entry.
+
 ### Map Ensembl Genomes to Match VSM object
 
 This specification relates to the function:  

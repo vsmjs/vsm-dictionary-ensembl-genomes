@@ -7,6 +7,11 @@ module.exports = class DictionaryEnsemblGenomes extends Dictionary {
     const opt = options || {};
     super(opt);
 
+    // optimized mapping for curators
+    this.optimap = (typeof opt.optimap === 'boolean')
+      ? opt.optimap
+      : true;
+
     // EnsemblGenomes-specific parameters
     this.ensemblGenomesDictID = 'http://www.ensemblgenomes.org'; // no https yet!
     this.ensemblGenomesFields = 'id,name,description,gene_synonyms,species';
@@ -122,41 +127,40 @@ module.exports = class DictionaryEnsemblGenomes extends Dictionary {
   }
 
   mapEnsemblGenomesResToEntryObj(res) {
-    return res.entries.map(entry => ({
-      id: this.ensemblGenomesDictID + '/id/' + entry.fields.id[0],
-      dictID: this.ensemblGenomesDictID,
-      ...((entry.fields.description.length !== 0)
-        && {
-          descr: entry.fields.description[0],
+    return res.entries.map(entry => {
+      const terms = this.buildTerms(entry.fields.name,
+        entry.fields.id[0], entry.fields.gene_synonyms);
+      const descr = this.getDescr(entry.fields.species, terms,
+        entry.fields.description, entry.fields.id[0]);
+      return {
+        id: this.ensemblGenomesDictID + '/id/' + entry.fields.id[0],
+        dictID: this.ensemblGenomesDictID,
+        descr: descr,
+        terms: terms,
+        z: {
+          ...((entry.fields.species.length !== 0)
+              && {
+                species: entry.fields.species[0],
+              }
+          )
         }
-      ),
-      terms: this.buildTerms(entry.fields.name,
-        entry.fields.id[0], entry.fields.gene_synonyms),
-      z: {
-        ...((entry.fields.species.length !== 0)
-          && {
-            species: entry.fields.species[0],
-          }
-        )
-      }
-    }));
+      };
+    });
   }
-
   mapEnsemblGenomesResToMatchObj(res, str) {
     return res.entries.map(entry => {
       const mainTerm = this.getMainTerm(entry.fields.name, entry.fields.id[0]);
+      const terms = this.buildTerms(entry.fields.name,
+        entry.fields.id[0], entry.fields.gene_synonyms);
+      const descr = this.getDescr(entry.fields.species, terms,
+        entry.fields.description, entry.fields.id[0]);
       return {
         id: this.ensemblGenomesDictID + '/id/' + entry.fields.id[0],
         dictID: this.ensemblGenomesDictID,
         str: mainTerm,
-        ...((entry.fields.description.length !== 0)
-          && {
-            descr: entry.fields.description[0],
-          }
-        ),
+        descr: descr,
         type: mainTerm.startsWith(str) ? 'S' : 'T',
-        terms: this.buildTerms(entry.fields.name,
-          entry.fields.id[0], entry.fields.gene_synonyms),
+        terms: terms,
         z: {
           ...((entry.fields.species.length !== 0)
             && {
@@ -261,6 +265,26 @@ module.exports = class DictionaryEnsemblGenomes extends Dictionary {
       return name[0];
     else
       return id;
+  }
+
+  getDescr(species, terms, description, id) {
+    const descr = (description.length !== 0) ? description[0] : '';
+    if (this.optimap) {
+      let termArr = terms.map(term => term.str);
+      termArr.shift(); // remove mainTerm
+      let termArrLowerCase = termArr.map(term => term.toLowerCase());
+      if (!termArrLowerCase.includes(id.toLowerCase()))
+        termArr.unshift(id); // add 'id' if it's not already there
+      let termStrings = termArr.join('|');
+      if (termStrings !== '')
+        termStrings = termStrings.concat('; ');
+      const speciesName = (species.length !== 0)
+        ? species[0].split(' ').slice(0,2).join(' ').concat('; ') // first two words of the species string
+        : '';
+      return speciesName.concat(termStrings, descr).trim();
+    } else {
+      return descr;
+    }
   }
 
   sortEntries(arr, options) {

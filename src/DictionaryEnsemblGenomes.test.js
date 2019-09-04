@@ -8,7 +8,9 @@ describe('DictionaryEnsembl.js', () => {
 
   const testURLBase = 'http://test';
   const dict =
-    new DictionaryEnsembl({ baseURL: testURLBase, log: true });
+    new DictionaryEnsembl({ baseURL: testURLBase, log: true, optimap: false });
+  const dictOptimized =
+    new DictionaryEnsembl({ baseURL: testURLBase, log: true}); // optimap: true
 
   const melanomaStr = 'melanoma';
   const noResultsStr = 'somethingThatDoesNotExist';
@@ -241,6 +243,35 @@ describe('DictionaryEnsembl.js', () => {
         { page: 1, perPage: 2 });
       const paginationURLPart4 = '&size=2&start=0';
       url8.should.equal(expectedURL + paginationURLPart4 + formatURLPart);
+
+      cb();
+    });
+  });
+
+  describe('getDescr', () => {
+    it('returns proper description string', cb => {
+      const id = 'ENSMDL0485933300066';
+      let species = ['XXX'];
+      let terms = [
+        { str: 'mainTerm' }, { str: 'Synonym-2'}, { str: 'Synonym-3'}
+      ];
+      let description = ['A description string'];
+
+      dict.getDescr(species, terms, description, id).should.equal('A description string');
+      dictOptimized.getDescr(species, terms, description, id).should.equal('XXX; ENSMDL0485933300066|Synonym-2|Synonym-3; A description string');
+
+      species = [];
+      dict.getDescr(species, terms, description, id).should.equal('A description string');
+      dictOptimized.getDescr(species, terms, description, id).should.equal('ENSMDL0485933300066|Synonym-2|Synonym-3; A description string');
+      terms = [];
+      dict.getDescr(species, terms, description, id).should.equal('A description string');
+      dictOptimized.getDescr(species, terms, description, id).should.equal('ENSMDL0485933300066; A description string');
+      species = ['YYY'];
+      dict.getDescr(species, terms, description, id).should.equal('A description string');
+      dictOptimized.getDescr(species, terms, description, id).should.equal('YYY; ENSMDL0485933300066; A description string');
+      description = [];
+      dict.getDescr(species, terms, description, id).should.equal('');
+      dictOptimized.getDescr(species, terms, description, id).should.equal('YYY; ENSMDL0485933300066;');
 
       cb();
     });
