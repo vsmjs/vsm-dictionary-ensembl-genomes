@@ -126,6 +126,23 @@ describe('DictionaryEnsembl.js', () => {
           }
         ]);
 
+      dictOptimized.mapEnsemblGenomesResToEntryObj(JSON.parse(getIDStr))
+        .should.deep.equal([
+          {
+            id: 'http://www.ensemblgenomes.org/id/AT3G52430',
+            dictID: 'http://www.ensemblgenomes.org',
+            descr: 'Arabidopsis thaliana; AT3G52430; Lipase-like PAD4 [Source:UniProtKB/Swiss-Prot;Acc:Q9S745]',
+            terms: [
+              {
+                'str': 'PAD4'
+              }
+            ],
+            z: {
+              species: 'Arabidopsis thaliana'
+            }
+          }
+        ]);
+
       cb();
     });
   });
@@ -140,6 +157,25 @@ describe('DictionaryEnsembl.js', () => {
             dictID: 'http://www.ensemblgenomes.org',
             str: 'NDNL2',
             descr: 'Melanoma-associated antigen G1',
+            type: 'T',
+            terms: [
+              {
+                str: 'NDNL2'
+              }
+            ],
+            z: {
+              species: 'Hypsizygus marmoreus str. 51987-8 (GCA_001605315)'
+            }
+          }
+        ]);
+
+      dictOptimized.mapEnsemblGenomesResToMatchObj(JSON.parse(getMatchesForMelanomaStr), 'melanoma')
+        .should.deep.equal([
+          {
+            id: 'http://www.ensemblgenomes.org/id/Hypma_05946',
+            dictID: 'http://www.ensemblgenomes.org',
+            str: 'NDNL2',
+            descr: 'Hypsizygus marmoreus; Hypma_05946; Melanoma-associated antigen G1',
             type: 'T',
             terms: [
               {
