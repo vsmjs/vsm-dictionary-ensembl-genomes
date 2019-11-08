@@ -1,5 +1,11 @@
 # vsm-dictionary-ensembl-genomes
 
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/vsmjs/vsm-dictionary-ensembl-genomes.svg?branch=master)](https://travis-ci.org/vsmjs/vsm-dictionary-ensembl-genomes)
+[![npm version](https://img.shields.io/npm/v/vsm-dictionary-ensembl-genomes)](https://www.npmjs.com/package/vsm-dictionary-ensembl-genomes)
+[![Downloads](https://img.shields.io/npm/dm/vsm-dictionary-ensembl-genomes)](https://www.npmjs.com/package/vsm-dictionary-ensembl-genomes)
+<!-- badges: end -->
+
 ## Summary
 
 `vsm-dictionary-ensembl-genomes` is an implementation 
