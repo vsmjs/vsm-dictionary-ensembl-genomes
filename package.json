@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vsmjs/vsm-dictionary-ensembl-genomes"
+    "url": "git+https://github.com/UniBioDicts/vsm-dictionary-ensembl-genomes"
   },
   "author": "John Zobolas",
   "license": "AGPL-3.0",
