@@ -23,10 +23,13 @@ Run: `npm install`
 
 ## Example use
 
-Create a `test.js` file and include this code:
+### Node.js
+
+Create a directory `test-dir` and inside run `npm install vsm-dictionary-ensembl-gemones`.
+Then, create a `test.js` file and include this code for example:
 
 ```javascript
-const DictionaryEnsemblGenomes = require('./DictionaryEnsemblGenomes');
+const DictionaryEnsemblGenomes = require('vsm-dictionary-ensembl-genomes');
 const dict = new DictionaryEnsemblGenomes({log: true});
 
 dict.getEntryMatchesForString('tp53', { page: 1, perPage: 10 }, 
@@ -39,6 +42,13 @@ dict.getEntryMatchesForString('tp53', { page: 1, perPage: 10 },
 );
 ```
 Then, run `node test.js`
+
+### Browsers
+
+```html
+<script src="https://unpkg.com/vsm-dictionary-ensembl-genomes@^1.0.0/dist/vsm-dictionary-ensembl-genomes.min.js"></script>
+```
+after which it is accessible as the global variable `VsmDictionaryEnsemblGenomes`.
 
 ## Tests
 
