@@ -1,7 +1,7 @@
 # vsm-dictionary-ensembl-genomes
 
 <!-- badges: start -->
-[![Build Status](https://travis-ci.com/UniBioDicts/vsm-dictionary-ensembl-genomes.svg?branch=master)](https://travis-ci.com/UniBioDicts/vsm-dictionary-ensembl-genomes)
+[![Node.js CI](https://github.com/UniBioDicts/vsm-dictionary-ensembl-genomes/workflows/Node.js%20CI/badge.svg)](https://github.com/UniBioDicts/vsm-dictionary-ensembl-genomes/actions)
 [![codecov](https://codecov.io/gh/UniBioDicts/vsm-dictionary-ensembl-genomes/branch/master/graph/badge.svg)](https://codecov.io/gh/UniBioDicts/vsm-dictionary-ensembl-genomes)
 [![npm version](https://img.shields.io/npm/v/vsm-dictionary-ensembl-genomes)](https://www.npmjs.com/package/vsm-dictionary-ensembl-genomes)
 [![Downloads](https://img.shields.io/npm/dm/vsm-dictionary-ensembl-genomes)](https://www.npmjs.com/package/vsm-dictionary-ensembl-genomes)
